@@ -1,28 +1,28 @@
 const fs = require('fs');
 const path = require('path');
 
-// Path to the requirements.txt file in the app subdirectory
+// Construct the file path dynamically
 const filePath = path.join(__dirname, 'app', 'requirements.txt');
 
 try {
-    // Read the file content
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-    
-    // Split content into lines
-    const lines = fileContent.split('\n');
-    
-    // Comment out first 5 lines by adding # at the beginning
-    for (let i = 0; i < Math.min(5, lines.length); i++) {
-        lines[i] = '# ' + lines[i];
+    // Read the existing content of the file
+    const content = fs.readFileSync(filePath, { encoding: 'utf8' });
+
+    // Split the content into lines
+    const lines = content.split('\n');
+
+    // Comment out the first 5 non-empty lines
+    for (let i = 0; i < 5 && i < lines.length; i++) {
+        if (lines[i].trim() !== '') { // Check if line is not empty
+            lines[i] = '#' + lines[i];
+        }
     }
-    
-    // Join the lines back together
-    const modifiedContent = lines.join('\n');
-    
-    // Write the modified content back to the file
-    fs.writeFileSync(filePath, modifiedContent);
-    
-    console.log('Successfully commented out first 5 lines');
+
+    // Join the lines back together and write to file
+    const newContent = lines.join('\n');
+    fs.writeFileSync(filePath, newContent, { encoding: 'utf8' });
+
+    console.log('First 5 lines have been commented out successfully!');
 } catch (error) {
-    console.error('Error processing file:', error);
+    console.error('An error occurred:', error.message);
 }
