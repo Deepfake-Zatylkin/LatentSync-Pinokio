@@ -58,8 +58,7 @@ module.exports = async (kernel) => {
           // Install OpenCV Dependencies
           "conda install -y fastai::opencv-python-headless",
           // Install Triton
-          "uv pip install https://hf-mirror.com/madbuda/triton-windows-builds/resolve/main/triton-2.1.0-cp310-cp310-win_amd64.whl",
-          //"uv pip install https://github.com/woct0rdho/triton-windows/releases/download/v3.1.0-windows.post8/triton-3.1.0-cp310-cp310-win_amd64.whl",
+          "uv pip install https://github.com/woct0rdho/triton-windows/releases/download/v3.1.0-windows.post8/triton-3.1.0-cp310-cp310-win_amd64.whl",
         ]
       }
     },
