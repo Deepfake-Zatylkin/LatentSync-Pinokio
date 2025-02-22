@@ -1,11 +1,16 @@
-module.exports = {
+module.exports = async (kernel) => {
+  let port = await kernel.port()
+  return{
   daemon: true,
   run: [
     {
       method: "shell.run",
       params: {
         venv: "env",                // Edit this to customize the venv folder path
-        env: { },                   // Edit this to customize environment variables (see documentation)
+        env: {
+          SERVER_NAME: "127.0.0.1",
+          SERVER_PORT: port
+         },                   // Edit this to customize environment variables (see documentation)
         path: "app",                // Edit this to customize the path to start the shell from
         message: [
           "python gradio_app.py",    // Edit with your custom commands
@@ -29,7 +34,8 @@ module.exports = {
       params: {
         // the input.event is the regular expression match object from the previous step
         url: "{{input.event[0]}}"
+        }
       }
-    }
-  ]
+    ]
+  }
 }
